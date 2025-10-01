@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ethiopian Airlines — Ticket Confirmation</title>
+  <style>
+    :root{
+      --primary:#0B6A3A;
+      --accent:#C62828;
+      --gold:#F2C94C;
+      --bg:#f6f8fa;
+      --card:#ffffff;
+      --muted:#6b7280;
+    }
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      background:linear-gradient(180deg,var(--bg),#eef4f6);
+      color:#0b1720;
+    }
+    .wrap{max-width:1100px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:364px;height:164px;
+      border-radius:10px;
+      object-fit:cover;
+    }
+    h1{margin:0;font-size:22px;color:var(--primary)}
+    p.lead{margin:2px 0 0;color:var(--muted);font-size:14px}
+
+    .main-card{
+      background:var(--card);
+      border-radius:18px;
+      padding:24px;
+      margin-top:22px;
+      box-shadow:0 8px 40px rgba(11,106,58,0.08);
+    }
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:22px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}.logo{width:52px;height:52px}}
+
+    .controls{display:flex;gap:10px;align-items:center;margin-top:10px}
+    input[type=text]{
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid #e6edf0;
+      font-size:15px;
+      flex:1;
+    }
+    .btn{
+      background:var(--primary);
+      color:white;
+      padding:10px 16px;
+      border-radius:12px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      transition:all 0.2s ease;
+    }
+    .btn:hover{background:#0a5d34}
+    .btn-ghost{
+      background:transparent;
+      border:2px solid var(--primary);
+      color:var(--primary);
+      padding:9px 14px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:all 0.2s ease;
+    }
+    .btn-ghost:hover{background:#eafaf1}
+
+    .pdf-wrap{
+      margin-top:20px;
+      border-radius:12px;
+      border:2px solid #0B6A3A;
+      overflow:hidden;
+      box-shadow:0 4px 20px rgba(0,0,0,0.05);
+    }
+    iframe{width:100%;height:550px;border:0}
+
+    .confirmed{
+      margin-top:20px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:20px;
+      border-radius:14px;
+      background:#e8fdf1;
+      border:2px solid #0B6A3A;
+      font-weight:800;
+      font-size:22px;
+      color:#0B6A3A;
+      justify-content:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    }
+    .confirmed span{font-size:34px}
+
+    .side{display:flex;flex-direction:column;gap:16px}
+    .side .panel{
+      background:#fff;
+      padding:16px;
+      border-radius:12px;
+      border:1px solid #eef6ff;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    }
+    .muted{color:var(--muted);font-size:13px}
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center
+    }
+    .return-home{
+      display:inline-block;
+      margin-top:20px;
+      text-decoration:none;
+      background:var(--primary);
+      color:white;
+      padding:12px 20px;
+      border-radius:12px;
+      font-weight:700;
+      transition:0.2s ease;
+    }
+    .return-home:hover{background:#0a5d34}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- Replace AE with your logo -->
+        <img src="./ethiopian airlines.PNG" alt="Airline Logo" class="logo">
+        <div>
+          <h1>Ethiopian Airlines</h1>
+          <p class="lead">Ticket Confirmation Page</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-card">
+      <div class="grid">
+        <section>
+          <div>
+            <div style="font-weight:800;font-size:18px;margin-bottom:6px">Manage Your Flight</div>
+
+            <div class="controls">
+              <input id="flightInput" type="text" placeholder="Enter flight number (e.g. ET302)" />
+              <button id="confirmBtn" class="btn">Confirm</button>
+              <button id="addTicketBtn" class="btn-ghost">Add Ticket</button>
+            </div>
+
+            <div class="controls">
+              <input id="pdfPath" type="text" placeholder="./ticket.pdf" />
+              <button id="loadPdfBtn" class="btn">Load PDF</button>
+            </div>
+
+            <!-- PDF view -->
+            <div class="pdf-wrap" id="pdfWrap">
+              <iframe id="pdfFrame" src="./FROM BJR TO ADD A.jpg"></iframe>
+            </div>
+
+            <!-- Confirmation badge -->
+            <div class="confirmed" id="confirmBadge">
+              <span>✔</span> Ticket Confirmed
+            </div>
+          </div>
+        </section>
+
+        <aside class="side">
+          <div class="panel">
+            <div style="font-weight:800">Quick Actions</div>
+            <div style="margin-top:12px;display:flex;gap:10px">
+              <button id="clearBtn" class="btn-ghost">Clear</button>
+            </div>
+            <p class="muted" style="margin-top:10px">
+              MOHAMMAD/AYMEN. ABD MR              
+            </p>
+          </div>
+
+          <div class="panel">
+            <div style="font-weight:800">Preview</div>
+            <div style="margin-top:8px" id="ticketPreview">Ticket No- 0712147076392 (MOHAMMAD/AYMEN. ABD MR)    </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://www.ethiopianairlines.com/et" class="return-home">Return to Home Page</a>
+    </footer>
+  </div>
+
+  <script>
+    const flightInput = document.getElementById('flightInput');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const addTicketBtn = document.getElementById('addTicketBtn');
+    const pdfPath = document.getElementById('pdfPath');
+    const loadPdfBtn = document.getElementById('loadPdfBtn');
+    const pdfWrap = document.getElementById('pdfWrap');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const confirmBadge = document.getElementById('confirmBadge');
+    const clearBtn = document.getElementById('clearBtn');
+    const ticketPreview = document.getElementById('ticketPreview');
+
+    let tickets = [];
+
+    function renderTickets(){
+      if(tickets.length === 0){
+        ticketPreview.innerHTML = "No ticket selected";
+        return;
+      }
+      const t = tickets[tickets.length-1];
+      ticketPreview.innerHTML = `
+        <div style="font-weight:800">${t.code}</div>
+        <div class="muted">${t.route} • ${t.date}</div>
+        <div style="margin-top:8px">PDF: <code>${t.pdf || 'none'}</code></div>`;
+    }
+
+    function addTicket(code, route, date, pdf){
+      tickets.push({code,route,date,pdf});
+      renderTickets();
+    }
+
+    confirmBtn.addEventListener('click', ()=>{
+      confirmBadge.style.display = 'flex';
+    });
+
+    clearBtn.addEventListener('click', ()=>{
+      flightInput.value = '';
+      tickets = [];
+      renderTickets();
+      pdfFrame.src = '';
+      pdfWrap.style.display = 'none';
+      confirmBadge.style.display = 'none';
+    });
+
+    addTicketBtn.addEventListener('click', ()=>{
+      const code = (flightInput.value||'').trim().toUpperCase() || `TK${Math.floor(Math.random()*900+100)}`;
+      const date = new Date().toISOString().slice(0,10);
+      const route = 'ADD → LON';
+      const pdf = (pdfPath.value && pdfPath.value.trim()) ? pdfPath.value.trim() : '';
+      addTicket(code, route, date, pdf);
+      if(pdf){ pdfFrame.src = pdf; pdfWrap.style.display = 'block'; }
+    });
+
+    loadPdfBtn.addEventListener('click', ()=>{
+      const path = (pdfPath.value||'').trim();
+      if(!path){ alert('Enter a relative path to the PDF, e.g. ./ticket.pdf'); return; }
+      pdfFrame.src = path;
+      pdfWrap.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
